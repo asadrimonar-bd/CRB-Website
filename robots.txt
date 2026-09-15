@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://asadrimonar-bd.github.io/CRB-Website/sitemap.xml
