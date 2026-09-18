@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#116149">
+<title>CRB Bovine Reproduction & AI Assistant</title>
+<style>
+:root{--g:#116149;--g2:#1f8a68;--bg:#f3f7f5;--card:#fff;--ink:#163229;--muted:#687b74;--line:#dce7e2;--warn:#fff6df;--danger:#fff0f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}
+header{background:linear-gradient(135deg,#0d503c,#23906b);color:white;padding:20px 16px 16px;position:sticky;top:0;z-index:20}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:#fff2;display:grid;place-items:center;font-size:28px}
+h1{font-size:22px;margin:0}header p{margin:4px 0 0;opacity:.88;font-size:12px}
+nav{display:flex;overflow:auto;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:84px;z-index:19}
+nav button{border:0;background:white;padding:12px 13px;white-space:nowrap;color:var(--muted);font-weight:700}nav button.on{color:var(--g);border-bottom:3px solid var(--g)}
+main{max-width:1100px;margin:auto;padding:16px}.tab{display:none}.tab.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;box-shadow:0 2px 9px #0b3d2510}
+.card h3{margin:0 0 7px}.muted{color:var(--muted);line-height:1.5}.pill{display:inline-block;background:#e5f3ed;color:var(--g);padding:5px 9px;border-radius:20px;font-size:11px;font-weight:800}
+.kpi{font-size:27px;font-weight:850;color:var(--g)}button{cursor:pointer}.primary{border:0;border-radius:9px;padding:10px 13px;background:var(--g);color:white;font-weight:750}.secondary{border:0;border-radius:9px;padding:10px 13px;background:#eaf0ed;color:var(--ink);font-weight:750}.danger{background:var(--danger);border-left:4px solid #ba4040;padding:11px;border-radius:8px}.warn{background:var(--warn);border-left:4px solid #c88b22;padding:11px;border-radius:8px}
+label{display:block;font-weight:700;font-size:13px;margin:9px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid #cad8d2;border-radius:9px;background:#fff}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}.scroll{overflow:auto}.check{display:flex;gap:8px;align-items:flex-start;padding:8px;background:#f8faf9;border-radius:8px;margin:6px 0}.check input{width:auto}.progress{height:9px;background:#e5ece9;border-radius:20px;overflow:hidden}.progress>div{height:100%;background:var(--g);width:0}.hidden{display:none}.timer{text-align:center;font-size:40px;font-weight:900;color:var(--g);padding:8px}.small{font-size:11px;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:25px;font-size:11px}
+@media(max-width:600px){h1{font-size:19px}.grid{grid-template-columns:1fr}.card{padding:13px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
+<body>
+<header><div class="brand"><div class="logo">🐄</div><div><h1>CRB Bovine Reproduction & AI Assistant</h1><p>Clinical learning • AI field support • reproductive records • fertility audit</p></div></div></header>
+<nav>
+<button class="on" onclick="tab('dash',this)">Dashboard</button><button onclick="tab('cow',this)">Cow Profile</button><button onclick="tab('ai',this)">AI Assistant</button><button onclick="tab('repeat',this)">Repeat Breeder</button><button onclick="tab('pd',this)">Pregnancy</button><button onclick="tab('train',this)">Training</button><button onclick="tab('cases',this)">Cases</button><button onclick="tab('reports',this)">Reports</button>
+</nav>
+<main>
+<section id="auth" class="tab on"><div class="card"><span class="pill">CRB Secure Workspace</span><h2>Sign in / Create account</h2><p class="muted">Use your Supabase account to keep farm and reproductive records securely separated by user/farm.</p><div class="grid"><div><label>Email</label><input id="email" type="email"></div><div><label>Password</label><input id="password" type="password" minlength="6"></div><div><label>Your name</label><input id="fullname"></div><div><label>Farm name</label><input id="farmname" placeholder="e.g. CRB Demo Farm"></div></div><br><button class="primary" onclick="signIn()">Sign in</button> <button class="secondary" onclick="signUp()">Create account</button><button class="secondary" onclick="signOut()">Sign out</button><p id="authmsg" class="small"></p></div></section>
+
+
+<section id="dash" class="tab on">
+<div class="card"><span class="pill">CRB — Cattle Reproduction Bangladesh</span><h2>Veterinarian Reproduction Command Center</h2><p class="muted">A practical decision-support prototype for bovine artificial insemination, fertility investigation and reproductive record management.</p><div class="warn"><b>Clinical boundary:</b> This assistant supports training, documentation and structured clinical reasoning. It does not replace physical examination, ultrasound, laboratory diagnosis, local veterinary regulations, product labels or farm SOPs.</div></div><br>
+<div class="grid">
+<div class="card"><div class="kpi" id="kcows">0</div>Registered cows</div><div class="card"><div class="kpi" id="kais">0</div>AI records</div><div class="card"><div class="kpi" id="kpreg">0%</div>Recorded conception rate</div><div class="card"><div class="kpi" id="krep">0</div>Repeat-breeder flags</div>
+</div><br>
+<div class="grid">
+<div class="card"><h3>🚦 Today's clinical workflow</h3><ol><li>Review cow history</li><li>Assess heat / synchronization status</li><li>Check semen + technician readiness</li><li>Perform hygienic AI</li><li>Record every service</li><li>Schedule pregnancy diagnosis</li><li>Audit non-pregnant cows</li></ol></div>
+<div class="card"><h3>🎯 Core fertility principle</h3><p class="muted">AI success depends on the interaction of cow factors, estrus detection/timing, semen quality and handling, insemination technique, health, nutrition and herd management—not a single intervention.</p></div>
+</div>
+</section>
+
+<section id="cow" class="tab">
+<h2>Cow Reproductive Profile</h2>
+<div class="card"><div class="grid">
+<div><label>Cow ID *</label><input id="cid"></div><div><label>Breed</label><input id="breed" placeholder="HF / Cross / Sahiwal..."></div><div><label>DOB / Age</label><input id="age"></div><div><label>Parity</label><input id="parity" type="number" min="0"></div>
+<div><label>Calving date</label><input id="calving" type="date"></div><div><label>BCS</label><select id="bcs"><option>1</option><option>2</option><option selected>2.5</option><option>3</option><option>3.5</option><option>4</option><option>5</option></select></div>
+<div><label>Days postpartum</label><input id="dpp" type="number"></div><div><label>Reproductive status</label><select id="status"><option>Open</option><option>Pregnant</option><option>Postpartum</option><option>Repeat breeder</option><option>Anestrus</option></select></div>
+</div><label>History / examination notes</label><textarea id="chistory" rows="4"></textarea><br><button class="primary" onclick="saveCow()">Save cow</button> <button class="secondary" onclick="clearCow()">New</button><p id="cowmsg" class="small"></p></div>
+<div class="card"><h3>Registered cows</h3><div id="cowtable"></div></div>
+</section>
+
+<section id="ai" class="tab">
+<h2>AI Assistant</h2>
+<div class="card"><h3>1. Pre-breeding decision gate</h3>
+<div class="check"><input type="checkbox"> Cow identity and breeding history verified</div><div class="check"><input type="checkbox"> Appropriate estrus/synchronization status confirmed</div><div class="check"><input type="checkbox"> No obvious systemic illness / severe reproductive abnormality</div><div class="check"><input type="checkbox"> Semen code and storage status verified</div><div class="check"><input type="checkbox"> AI equipment and hygiene prepared</div>
+</div><br>
+<div class="grid">
+<div class="card"><h3>2. Heat assessment</h3><label>Primary sign</label><select id="heat"><option>Standing to be mounted</option><option>Mounting other cows</option><option>Mucus / secondary signs</option><option>Activity alert</option><option>Uncertain</option></select><label>Observation time</label><input id="heattime" type="time"><button class="primary" onclick="timing()">Assess timing</button><p id="timingout" class="muted"></p></div>
+<div class="card"><h3>3. Semen workflow</h3><label>Bull / semen code</label><input id="semencode"><label>Thawing SOP followed?</label><select id="thawsop"><option>Yes</option><option>No</option><option>Uncertain</option></select><label>Time thaw started</label><input id="thawtime" type="time"><button class="primary" onclick="thawCheck()">Check workflow</button><p id="thawout" class="muted"></p></div>
+</div><br>
+<div class="card"><h3>4. AI technician checklist</h3><div class="grid"><div><div class="check"><input type="checkbox"> Clean perineum</div><div class="check"><input type="checkbox"> Correct straw selected</div><div class="check"><input type="checkbox"> Straw protected from thermal shock</div><div class="check"><input type="checkbox"> Gun loaded correctly</div></div><div><div class="check"><input type="checkbox"> Cervix located gently</div><div class="check"><input type="checkbox"> Catheter passed without force</div><div class="check"><input type="checkbox"> Deposition site confirmed</div><div class="check"><input type="checkbox"> AI record completed</div></div></div></div>
+<br><div class="card"><h3>5. Record service</h3><div class="grid"><div><label>Cow ID</label><input id="aicow"></div><div><label>AI date</label><input id="aidate" type="date"></div><div><label>Bull/semen code</label><input id="aibull"></div><div><label>Technician</label><input id="aitech"></div><div><label>Service number</label><input id="aiservice" type="number" min="1" value="1"></div></div><label>Notes</label><textarea id="ainotes" rows="3"></textarea><button class="primary" onclick="saveAI()">Save AI record</button><p id="aimsg" class="small"></p></div>
+</section>
+
+<section id="repeat" class="tab">
+<h2>Repeat-Breeder Clinical Work-up</h2>
+<div class="card"><p class="muted">Use this module when conception failure becomes a pattern. Avoid automatically repeating AI without identifying the likely limiting factor.</p>
+<div class="grid">
+<div><label>Services without confirmed pregnancy</label><input id="services" type="number" value="3" min="0"></div><div><label>Heat detection</label><select id="rheat"><option>Good</option><option>Questionable</option><option>Poor</option></select></div><div><label>Postpartum uterine history</label><select id="uterus"><option>No concern</option><option>Discharge / suspected disease</option><option>Unknown</option></select></div><div><label>BCS / nutrition</label><select id="nutrition"><option>Adequate</option><option>Borderline</option><option>Poor / declining</option></select></div><div><label>Semen/technician audit</label><select id="semenaudit"><option>Good</option><option>Not audited</option><option>Concern</option></select></div><div><label>Ovarian/uterine exam</label><select id="exam"><option>Normal</option><option>Abnormal</option><option>Not examined</option></select></div>
+</div><button class="primary" onclick="repeatAudit()">Generate investigation priorities</button><div id="repeatout" class="card" style="margin-top:12px"></div></div>
+<div class="grid"><div class="card"><h3>🩺 Cow factors</h3><ul><li>Postpartum uterine health</li><li>Ovarian function / cyclicity</li><li>BCS and energy balance</li><li>Systemic disease / lameness</li></ul></div><div class="card"><h3>🧪 Semen factors</h3><ul><li>Straw identification</li><li>Storage / LN₂ management</li><li>Thawing process</li><li>Bull/semen fertility history</li></ul></div><div class="card"><h3>👨‍⚕️ Technician factors</h3><ul><li>Heat interpretation</li><li>Timing</li><li>Hygiene</li><li>Cervical manipulation / deposition</li><li>Record accuracy</li></ul></div></div>
+</section>
+
+<section id="pd" class="tab">
+<h2>Pregnancy Diagnosis & Follow-up</h2>
+<div class="card"><div class="grid"><div><label>AI date</label><input id="pddate" type="date"></div><div><label>PD method</label><select id="pdmethod"><option>Ultrasound</option><option>Rectal palpation</option><option>Other</option></select></div></div><button class="primary" onclick="pdPlan()">Build follow-up plan</button><p id="pdout" class="muted"></p></div>
+<div class="card"><h3>Follow-up record</h3><div class="check"><input type="checkbox"> Return-to-estrus monitoring completed</div><div class="check"><input type="checkbox"> Pregnancy status recorded</div><div class="check"><input type="checkbox"> Fetal viability assessed when appropriate</div><div class="check"><input type="checkbox"> Open cow entered into next-step investigation</div></div>
+</section>
+
+<section id="train" class="tab">
+<h2>AI Training Academy</h2>
+<div class="grid">
+<div class="card"><h3>Module 1 — Reproductive anatomy</h3><p class="muted">Cervix, uterine body, horns, ovaries, CL and follicular structures.</p></div>
+<div class="card"><h3>Module 2 — Estrus detection</h3><p class="muted">Standing heat, mounting, mucus, activity and silent/weak estrus.</p></div>
+<div class="card"><h3>Module 3 — Frozen semen</h3><p class="muted">Tank discipline, straw identification, thawing, drying and thermal protection.</p></div>
+<div class="card"><h3>Module 4 — Recto-vaginal AI</h3><p class="muted">Safe restraint, hygiene, cervical handling, gentle catheter passage and deposition.</p></div>
+<div class="card"><h3>Module 5 — Fertility audit</h3><p class="muted">Cow × semen × technician × timing × management framework.</p></div>
+<div class="card"><h3>Module 6 — Pregnancy diagnosis</h3><p class="muted">Ultrasound/rectal examination concepts and documentation.</p></div>
+<div class="card"><h3>Module 7 — Repeat breeder clinic</h3><p class="muted">Structured multifactorial work-up of conception failure.</p></div>
+<div class="card"><h3>Module 8 — Herd reproduction</h3><p class="muted">Conception rate, submission rate, pregnancy rate and technician benchmarking.</p></div>
+</div><br>
+<div class="card"><h3>Knowledge assessment</h3>
+<p>1. Why is accurate estrus detection important?</p><button class="secondary" onclick="quiz(1)">A. It improves timing decisions</button> <button class="secondary" onclick="quiz(0)">B. It replaces pregnancy diagnosis</button>
+<p>2. What should happen when catheter passage is unexpectedly difficult?</p><button class="secondary" onclick="quiz(1)">A. Stop and reassess</button> <button class="secondary" onclick="quiz(0)">B. Apply force</button>
+<p id="quizout"></p></div>
+</section>
+
+<section id="cases" class="tab">
+<h2>Clinical Case Simulator</h2>
+<div class="card"><h3>Case A — 3 services, not pregnant</h3><p class="muted">A cow is repeatedly inseminated, but heat detection is inconsistent and BCS is declining.</p><button class="secondary" onclick="caseA()">Reveal approach</button><p id="casea"></p></div><br>
+<div class="card"><h3>Case B — Technician-specific fertility problem</h3><p class="muted">The same semen batch is used by several technicians, but one technician's pregnancy rate is substantially lower.</p><button class="secondary" onclick="caseB()">Reveal approach</button><p id="caseb"></p></div><br>
+<div class="card"><h3>Case C — Abnormal discharge</h3><p class="muted">A cow presented for breeding has abnormal vaginal discharge.</p><button class="secondary" onclick="caseC()">Reveal approach</button><p id="casec"></p></div>
+</section>
+
+<section id="reports" class="tab">
+<h2>Fertility Dashboard</h2>
+<div class="card"><div class="grid"><div><label>Pregnant</label><input id="rp" type="number" value="20"></div><div><label>Inseminated</label><input id="rb" type="number" value="50"></div><div><label>Repeat breeders</label><input id="rr" type="number" value="5"></div></div><button class="primary" onclick="report()">Calculate KPIs</button><div id="reportout" class="grid" style="margin-top:14px"></div></div>
+<div class="card"><h3>Recommended audit sequence</h3><ol><li>Validate data quality.</li><li>Segment by farm, technician, bull/semen and parity.</li><li>Review heat-detection and timing errors.</li><li>Audit semen handling and LN₂ records.</li><li>Review postpartum disease and BCS.</li><li>Investigate repeat breeders individually.</li></ol></div>
+</section>
+</main>
+<footer>CRB Bovine Reproduction & AI Assistant • Educational prototype • Clinical decisions remain the responsibility of the attending veterinarian.</footer>
+<script>
+const KEY='crb_v2';let db=JSON.parse(localStorage.getItem(KEY)||'{"cows":[],"ai":[]}');
+function persist(){localStorage.setItem(KEY,JSON.stringify(db));dash();renderCows()}
+function tab(id,b){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');scrollTo(0,0)}
+function saveCow(){let c={id:cid.value,breed:breed.value,age:age.value,parity:parity.value,calving:calving.value,bcs:bcs.value,dpp:dpp.value,status:status.value,history:chistory.value};if(!c.id){cowmsg.textContent='Cow ID is required.';return}db.cows=db.cows.filter(x=>x.id!==c.id);db.cows.push(c);persist();cowmsg.textContent='Cow profile saved on this device.'}
+function clearCow(){document.querySelectorAll('#cow input,#cow textarea').forEach(x=>x.value='')}
+function saveAI(){let r={cow:aicow.value,date:aidate.value,bull:aibull.value,tech:aitech.value,service:aiservice.value,notes:ainotes.value};if(!r.cow||!r.date){aimsg.textContent='Cow ID and AI date are required.';return}db.ai.push(r);persist();aimsg.textContent='AI service saved.'}
+function renderCows(){cowtable.innerHTML=db.cows.length?'<div class="scroll"><table><tr><th>ID</th><th>Breed</th><th>Parity</th><th>BCS</th><th>Status</th></tr>'+db.cows.map(c=>`<tr><td>${c.id}</td><td>${c.breed}</td><td>${c.parity}</td><td>${c.bcs}</td><td>${c.status}</td></tr>`).join('')+'</table></div>':'<span class="small">No cow records.</span>'}
+function dash(){kcows.textContent=db.cows.length;kais.textContent=db.ai.length;let preg=db.ai.filter(x=>x.pregnant).length;kpreg.textContent=db.ai.length?Math.round(preg/db.ai.length*100)+'%':'0%';krep.textContent=db.cows.filter(x=>x.status==='Repeat breeder').length}
+function timing(){let t=heattime.value;if(!t){timingout.textContent='Enter the observed heat time.';return}timingout.textContent='Use the observed onset of standing heat and your validated farm AI SOP to determine insemination timing. Do not rely on a clock rule alone when heat onset is uncertain.'}
+function thawCheck(){thawout.textContent=thawsop.value==='Yes'?'Workflow acceptable: continue according to the validated semen-handling SOP and minimize thermal exposure after thawing.':'Stop and correct the semen-handling process before proceeding.'}
+function repeatAudit(){let a=+services.value, p=[];if(a>=3)p.push('High priority: structured repeat-breeder investigation.');if(rheat.value!=='Good')p.push('Audit heat detection and AI timing.');if(uterus.value!=='No concern')p.push('Assess postpartum uterine health and reproductive tract.');if(nutrition.value!=='Adequate')p.push('Review energy balance, BCS and nutrition.');if(semenaudit.value!=='Good')p.push('Audit semen storage, thawing, straw handling and technician performance.');if(exam.value!=='Normal')p.push('Perform/complete reproductive examination.');if(!p.length)p.push('Continue systematic review of cow, timing, semen, technician and herd factors.');repeatout.innerHTML='<b>Investigation priorities:</b><ul>'+p.map(x=>'<li>'+x+'</li>').join('')+'</ul>'}
+function pdPlan(){let d=new Date(pddate.value);if(isNaN(d)){pdout.textContent='Select AI date.';return}let x=new Date(d);x.setDate(x.getDate()+28);pdout.textContent='Plan an appropriate pregnancy-diagnosis visit according to your herd protocol and diagnostic method. Example planning date: '+x.toLocaleDateString()+'. Exact timing should be based on the method used and veterinarian judgement.'}
+function quiz(v){quizout.textContent=v?'Correct.':'Incorrect. Review the module.'}
+function caseA(){casea.textContent='Audit heat detection/timing, BCS and nutrition, postpartum uterine health, ovarian status, semen handling, technician technique and records before another routine AI.'}
+function caseB(){caseb.textContent='Compare service-level records by technician. Audit thawing, semen handling, timing, hygiene and deposition technique. A technician-specific pattern warrants direct skills/process review.'}
+function caseC(){casec.textContent='Do not treat as routine AI. Investigate the reproductive tract and manage disease according to examination findings and applicable veterinary protocols before breeding.'}
+function report(){let p=+rp.value,b=+rb.value,r=+rr.value;let cr=b?(p/b*100):0;reportout.innerHTML=`<div class="card"><b>Conception rate</b><div class="kpi">${cr.toFixed(1)}%</div></div><div class="card"><b>Repeat-breeder proportion</b><div class="kpi">${b?(r/b*100).toFixed(1):0}%</div></div><div class="card"><b>Services recorded</b><div class="kpi">${b}</div></div>`}
+dash();renderCows();
+</script>
+</body></html<script>
+const SUPABASE_URL='https://qevyvmghofktcdktpgcz.supabase.co';
+const SUPABASE_PUBLISHABLE_KEY='sb_publishable_XiJrccb5kc4DF_8mk-A1eA_qQyB5qUM';
+const {createClient}=supabase; const sb=createClient(SUPABASE_URL,SUPABASE_PUBLISHABLE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
+let currentUser=null,currentFarm=null;
+const $=id=>document.getElementById(id);
+function msg(t){$('authmsg').textContent=t}
+async function signUp(){
+ const email=$('email').value.trim(), password=$('password').value, name=$('fullname').value.trim(), farmName=$('farmname').value.trim();
+ if(!email||password.length<6){msg('Email and password (minimum 6 characters) are required.');return}
+ const {data,error}=await sb.auth.signUp({email,password});
+ if(error){msg(error.message);return}
+ if(!data.user){msg('Check your email to confirm your account.');return}
+ await sb.from('profiles').upsert({id:data.user.id,full_name:name||email,role:'veterinarian'});
+ if(farmName){
+   const {data:f,error:fe}=await sb.from('farms').insert({name:farmName,owner_id:data.user.id}).select().single();
+   if(!fe) currentFarm=f;
+ }
+ msg(data.session?'Account created and signed in.':'Account created. Confirm your email, then sign in.');
+}
+async function signIn(){
+ const {data,error}=await sb.auth.signInWithPassword({email:$('email').value.trim(),password:$('password').value});
+ if(error){msg(error.message);return}
+ currentUser=data.user; await loadFarm(); msg('Signed in successfully.'); await refresh();
+}
+async function signOut(){await sb.auth.signOut();currentUser=null;currentFarm=null;msg('Signed out.');location.reload()}
+async function loadFarm(){
+ if(!currentUser)return;
+ const {data,error}=await sb.from('farms').select('*').order('created_at',{ascending:true}).limit(1);
+ if(error){msg(error.message);return}
+ currentFarm=data?.[0]||null;
+ if(!currentFarm){
+   const name=prompt('Enter your farm name to start CRB:','CRB Farm');
+   if(name){const r=await sb.from('farms').insert({name,owner_id:currentUser.id}).select().single();if(!r.error)currentFarm=r.data}
+ }
+}
+async function refresh(){
+ if(!currentUser||!currentFarm)return;
+ const [cows,ai,pd,rb]=await Promise.all([
+  sb.from('cows').select('*').eq('farm_id',currentFarm.id).order('created_at',{ascending:false}),
+  sb.from('ai_records').select('*').eq('cow_id','00000000-0000-0000-0000-000000000000'),
+  sb.from('pregnancy_records').select('*').eq('cow_id','00000000-0000-0000-0000-000000000000'),
+  sb.from('expert_assessments').select('*').eq('cow_id','00000000-0000-0000-0000-000000000000')
+ ]);
+ $('kcows').textContent=cows.data?.length||0; $('kais').textContent=0; $('kpreg').textContent='0%'; $('krep').textContent=0;
+ renderCows(cows.data||[]); populateCowSelect(cows.data||[]);
+}
+function renderCows(rows){$('cowtable').innerHTML=rows.length?'<div class="scroll"><table><tr><th>ID</th><th>Breed</th><th>Parity</th><th>BCS</th><th>Status</th></tr>'+rows.map(c=>'<tr><td>'+esc(c.animal_code)+'</td><td>'+esc(c.breed||'')+'</td><td>'+esc(c.parity??'')+'</td><td>—</td><td>'+esc(c.status||'')+'</td></tr>').join('')+'</table></div>':'<span class="small">No cow records yet.</span>'}
+function populateCowSelect(rows){const opts='<option value="">Select cow</option>'+rows.map(c=>'<option value="'+c.id+'">'+esc(c.animal_code)+'</option>').join(''); $('aicow').innerHTML=opts}
+function esc(s){return String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+async function saveCow(){
+ if(!currentUser||!currentFarm){msg('Please sign in and set up a farm first.');return}
+ const animal_code=$('cid').value.trim(); if(!animal_code){$('cowmsg').textContent='Cow ID is required.';return}
+ const {error}=await sb.from('cows').insert({farm_id:currentFarm.id,animal_code,breed:$('breed').value.trim()||null,parity:$('parity').value?Number($('parity').value):null,dob:$('age').value||null,status:$('status').value,notes:$('chistory').value.trim()||null,created_by:currentUser.id});
+ $('cowmsg').textContent=error?error.message:'Cow saved to Supabase.';
+ if(!error){clearCow();await refresh()}
+}
+function clearCow(){['cid','breed','age','parity','calving','dpp','chistory'].forEach(id=>$(id).value='')}
+async function saveAI(){
+ if(!currentUser){$('aimsg').textContent='Please sign in.';return}
+ const cow=$('aicow').value;if(!cow){$('aimsg').textContent='Select a cow.';return}
+ const {error}=await sb.from('ai_records').insert({cow_id:cow,ai_at:$('aidate').value||new Date().toISOString(),bull_code:$('aibull').value.trim()||null,technician:$('aitech').value.trim()||null,semen_type:'conventional',timing_status:'recorded',notes:$('ainotes').value.trim()||null,created_by:currentUser.id});
+ $('aimsg').textContent=error?error.message:'AI record saved to Supabase.'; if(!error)await refresh()
+}
+function timing(){const t=$('heattime').value;$('timingout').textContent=t?'Use standing heat onset and your validated farm SOP; do not rely on a clock rule alone when onset is uncertain.':'Enter observed heat time.'}
+function thawCheck(){$('thawout').textContent=$('thawsop').value==='Yes'?'Workflow acceptable: continue according to validated semen-handling SOP and minimize thermal exposure after thawing.':'Stop and correct the semen-handling process before proceeding.'}
+function repeatAudit(){let a=+$('services').value,p=[];if(a>=3)p.push('High priority: structured repeat-breeder investigation.');if($('rheat').value!=='Good')p.push('Audit heat detection and AI timing.');if($('uterus').value!=='No concern')p.push('Assess postpartum uterine health and reproductive tract.');if($('nutrition').value!=='Adequate')p.push('Review energy balance, BCS and nutrition.');if($('semenaudit').value!=='Good')p.push('Audit semen storage, thawing, straw handling and technician performance.');if($('exam').value!=='Normal')p.push('Perform/complete reproductive examination.');if(!p.length)p.push('Continue systematic review of cow, timing, semen, technician and herd factors.');$('repeatout').innerHTML='<b>Investigation priorities:</b><ul>'+p.map(x=>'<li>'+x+'</li>').join('')+'</ul>'}
+function pdPlan(){const d=new Date($('pddate').value);if(isNaN(d)){$('pdout').textContent='Select AI date.';return}const x=new Date(d);x.setDate(x.getDate()+28);$('pdout').textContent='Plan pregnancy diagnosis according to the diagnostic method and herd protocol. Example planning date: '+x.toLocaleDateString()+'.'}
+function quiz(v){$('quizout').textContent=v?'Correct.':'Incorrect. Review the module.'} function caseA(){$('casea').textContent='Audit heat detection/timing, BCS/nutrition, uterine health, ovarian status, semen handling, technician technique and records before routine repeat AI.'} function caseB(){$('caseb').textContent='Compare service-level records by technician and audit thawing, semen handling, timing, hygiene and deposition technique.'} function caseC(){$('casec').textContent='Do not treat as routine AI. Examine the reproductive tract and manage disease according to findings and veterinary protocols.'}
+function report(){let p=+$('rp').value,b=+$('rb').value,r=+$('rr').value;let cr=b?p/b*100:0;$('reportout').innerHTML='<div class="card"><b>Conception rate</b><div class="kpi">'+cr.toFixed(1)+'%</div></div><div class="card"><b>Repeat-breeder proportion</b><div class="kpi">'+(b?r/b*100:0).toFixed(1)+'%</div></div>'}
+function tab(id,b){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));$(id).classList.add('on');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));if(b)b.classList.add('on');scrollTo(0,0)}
+sb.auth.onAuthStateChange(async(_e,s)=>{currentUser=s?.user||null;if(currentUser){await loadFarm();await refresh();$('authmsg').textContent='Signed in: '+currentUser.email}else{$('authmsg').textContent='Please sign in to use cloud records.'}});
+</script>E html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#116149">
+<title>CRB Bovine Reproduction & AI Assistant</title>
+<style>
+:root{--g:#116149;--g2:#1f8a68;--bg:#f3f7f5;--card:#fff;--ink:#163229;--muted:#687b74;--line:#dce7e2;--warn:#fff6df;--danger:#fff0f0}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter,Arial,sans-serif}
+header{background:linear-gradient(135deg,#0d503c,#23906b);color:white;padding:20px 16px 16px;position:sticky;top:0;z-index:20}
+.brand{display:flex;gap:12px;align-items:center}.logo{width:48px;height:48px;border-radius:14px;background:#fff2;display:grid;place-items:center;font-size:28px}
+h1{font-size:22px;margin:0}header p{margin:4px 0 0;opacity:.88;font-size:12px}
+nav{display:flex;overflow:auto;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:84px;z-index:19}
+nav button{border:0;background:white;padding:12px 13px;white-space:nowrap;color:var(--muted);font-weight:700}nav button.on{color:var(--g);border-bottom:3px solid var(--g)}
+main{max-width:1100px;margin:auto;padding:16px}.tab{display:none}.tab.on{display:block}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:15px;box-shadow:0 2px 9px #0b3d2510}
+.card h3{margin:0 0 7px}.muted{color:var(--muted);line-height:1.5}.pill{display:inline-block;background:#e5f3ed;color:var(--g);padding:5px 9px;border-radius:20px;font-size:11px;font-weight:800}
+.kpi{font-size:27px;font-weight:850;color:var(--g)}button{cursor:pointer}.primary{border:0;border-radius:9px;padding:10px 13px;background:var(--g);color:white;font-weight:750}.secondary{border:0;border-radius:9px;padding:10px 13px;background:#eaf0ed;color:var(--ink);font-weight:750}.danger{background:var(--danger);border-left:4px solid #ba4040;padding:11px;border-radius:8px}.warn{background:var(--warn);border-left:4px solid #c88b22;padding:11px;border-radius:8px}
+label{display:block;font-weight:700;font-size:13px;margin:9px 0 5px}input,select,textarea{width:100%;padding:10px;border:1px solid #cad8d2;border-radius:9px;background:#fff}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:8px;border-bottom:1px solid var(--line)}.scroll{overflow:auto}.check{display:flex;gap:8px;align-items:flex-start;padding:8px;background:#f8faf9;border-radius:8px;margin:6px 0}.check input{width:auto}.progress{height:9px;background:#e5ece9;border-radius:20px;overflow:hidden}.progress>div{height:100%;background:var(--g);width:0}.hidden{display:none}.timer{text-align:center;font-size:40px;font-weight:900;color:var(--g);padding:8px}.small{font-size:11px;color:var(--muted)}footer{text-align:center;color:var(--muted);padding:25px;font-size:11px}
+@media(max-width:600px){h1{font-size:19px}.grid{grid-template-columns:1fr}.card{padding:13px}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script></head>
+<body>
+<header><div class="brand"><div class="logo">🐄</div><div><h1>CRB Bovine Reproduction & AI Assistant</h1><p>Clinical learning • AI field support • reproductive records • fertility audit</p></div></div></header>
+<nav>
+<button class="on" onclick="tab('dash',this)">Dashboard</button><button onclick="tab('cow',this)">Cow Profile</button><button onclick="tab('ai',this)">AI Assistant</button><button onclick="tab('repeat',this)">Repeat Breeder</button><button onclick="tab('pd',this)">Pregnancy</button><button onclick="tab('train',this)">Training</button><button onclick="tab('cases',this)">Cases</button><button onclick="tab('reports',this)">Reports</button>
+</nav>
+<main>
+<section id="auth" class="tab on"><div class="card"><span class="pill">CRB Secure Workspace</span><h2>Sign in / Create account</h2><p class="muted">Use your Supabase account to keep farm and reproductive records securely separated by user/farm.</p><div class="grid"><div><label>Email</label><input id="email" type="email"></div><div><label>Password</label><input id="password" type="password" minlength="6"></div><div><label>Your name</label><input id="fullname"></div><div><label>Farm name</label><input id="farmname" placeholder="e.g. CRB Demo Farm"></div></div><br><button class="primary" onclick="signIn()">Sign in</button> <button class="secondary" onclick="signUp()">Create account</button><button class="secondary" onclick="signOut()">Sign out</button><p id="authmsg" class="small"></p></div></section>
+
+
+<section id="dash" class="tab on">
+<div class="card"><span class="pill">CRB — Cattle Reproduction Bangladesh</span><h2>Veterinarian Reproduction Command Center</h2><p class="muted">A practical decision-support prototype for bovine artificial insemination, fertility investigation and reproductive record management.</p><div class="warn"><b>Clinical boundary:</b> This assistant supports training, documentation and structured clinical reasoning. It does not replace physical examination, ultrasound, laboratory diagnosis, local veterinary regulations, product labels or farm SOPs.</div></div><br>
+<div class="grid">
+<div class="card"><div class="kpi" id="kcows">0</div>Registered cows</div><div class="card"><div class="kpi" id="kais">0</div>AI records</div><div class="card"><div class="kpi" id="kpreg">0%</div>Recorded conception rate</div><div class="card"><div class="kpi" id="krep">0</div>Repeat-breeder flags</div>
+</div><br>
+<div class="grid">
+<div class="card"><h3>🚦 Today's clinical workflow</h3><ol><li>Review cow history</li><li>Assess heat / synchronization status</li><li>Check semen + technician readiness</li><li>Perform hygienic AI</li><li>Record every service</li><li>Schedule pregnancy diagnosis</li><li>Audit non-pregnant cows</li></ol></div>
+<div class="card"><h3>🎯 Core fertility principle</h3><p class="muted">AI success depends on the interaction of cow factors, estrus detection/timing, semen quality and handling, insemination technique, health, nutrition and herd management—not a single intervention.</p></div>
+</div>
+</section>
+
+<section id="cow" class="tab">
+<h2>Cow Reproductive Profile</h2>
+<div class="card"><div class="grid">
+<div><label>Cow ID *</label><input id="cid"></div><div><label>Breed</label><input id="breed" placeholder="HF / Cross / Sahiwal..."></div><div><label>DOB / Age</label><input id="age"></div><div><label>Parity</label><input id="parity" type="number" min="0"></div>
+<div><label>Calving date</label><input id="calving" type="date"></div><div><label>BCS</label><select id="bcs"><option>1</option><option>2</option><option selected>2.5</option><option>3</option><option>3.5</option><option>4</option><option>5</option></select></div>
+<div><label>Days postpartum</label><input id="dpp" type="number"></div><div><label>Reproductive status</label><select id="status"><option>Open</option><option>Pregnant</option><option>Postpartum</option><option>Repeat breeder</option><option>Anestrus</option></select></div>
+</div><label>History / examination notes</label><textarea id="chistory" rows="4"></textarea><br><button class="primary" onclick="saveCow()">Save cow</button> <button class="secondary" onclick="clearCow()">New</button><p id="cowmsg" class="small"></p></div>
+<div class="card"><h3>Registered cows</h3><div id="cowtable"></div></div>
+</section>
+
+<section id="ai" class="tab">
+<h2>AI Assistant</h2>
+<div class="card"><h3>1. Pre-breeding decision gate</h3>
+<div class="check"><input type="checkbox"> Cow identity and breeding history verified</div><div class="check"><input type="checkbox"> Appropriate estrus/synchronization status confirmed</div><div class="check"><input type="checkbox"> No obvious systemic illness / severe reproductive abnormality</div><div class="check"><input type="checkbox"> Semen code and storage status verified</div><div class="check"><input type="checkbox"> AI equipment and hygiene prepared</div>
+</div><br>
+<div class="grid">
+<div class="card"><h3>2. Heat assessment</h3><label>Primary sign</label><select id="heat"><option>Standing to be mounted</option><option>Mounting other cows</option><option>Mucus / secondary signs</option><option>Activity alert</option><option>Uncertain</option></select><label>Observation time</label><input id="heattime" type="time"><button class="primary" onclick="timing()">Assess timing</button><p id="timingout" class="muted"></p></div>
+<div class="card"><h3>3. Semen workflow</h3><label>Bull / semen code</label><input id="semencode"><label>Thawing SOP followed?</label><select id="thawsop"><option>Yes</option><option>No</option><option>Uncertain</option></select><label>Time thaw started</label><input id="thawtime" type="time"><button class="primary" onclick="thawCheck()">Check workflow</button><p id="thawout" class="muted"></p></div>
+</div><br>
+<div class="card"><h3>4. AI technician checklist</h3><div class="grid"><div><div class="check"><input type="checkbox"> Clean perineum</div><div class="check"><input type="checkbox"> Correct straw selected</div><div class="check"><input type="checkbox"> Straw protected from thermal shock</div><div class="check"><input type="checkbox"> Gun loaded correctly</div></div><div><div class="check"><input type="checkbox"> Cervix located gently</div><div class="check"><input type="checkbox"> Catheter passed without force</div><div class="check"><input type="checkbox"> Deposition site confirmed</div><div class="check"><input type="checkbox"> AI record completed</div></div></div></div>
+<br><div class="card"><h3>5. Record service</h3><div class="grid"><div><label>Cow ID</label><input id="aicow"></div><div><label>AI date</label><input id="aidate" type="date"></div><div><label>Bull/semen code</label><input id="aibull"></div><div><label>Technician</label><input id="aitech"></div><div><label>Service number</label><input id="aiservice" type="number" min="1" value="1"></div></div><label>Notes</label><textarea id="ainotes" rows="3"></textarea><button class="primary" onclick="saveAI()">Save AI record</button><p id="aimsg" class="small"></p></div>
+</section>
+
+<section id="repeat" class="tab">
+<h2>Repeat-Breeder Clinical Work-up</h2>
+<div class="card"><p class="muted">Use this module when conception failure becomes a pattern. Avoid automatically repeating AI without identifying the likely limiting factor.</p>
+<div class="grid">
+<div><label>Services without confirmed pregnancy</label><input id="services" type="number" value="3" min="0"></div><div><label>Heat detection</label><select id="rheat"><option>Good</option><option>Questionable</option><option>Poor</option></select></div><div><label>Postpartum uterine history</label><select id="uterus"><option>No concern</option><option>Discharge / suspected disease</option><option>Unknown</option></select></div><div><label>BCS / nutrition</label><select id="nutrition"><option>Adequate</option><option>Borderline</option><option>Poor / declining</option></select></div><div><label>Semen/technician audit</label><select id="semenaudit"><option>Good</option><option>Not audited</option><option>Concern</option></select></div><div><label>Ovarian/uterine exam</label><select id="exam"><option>Normal</option><option>Abnormal</option><option>Not examined</option></select></div>
+</div><button class="primary" onclick="repeatAudit()">Generate investigation priorities</button><div id="repeatout" class="card" style="margin-top:12px"></div></div>
+<div class="grid"><div class="card"><h3>🩺 Cow factors</h3><ul><li>Postpartum uterine health</li><li>Ovarian function / cyclicity</li><li>BCS and energy balance</li><li>Systemic disease / lameness</li></ul></div><div class="card"><h3>🧪 Semen factors</h3><ul><li>Straw identification</li><li>Storage / LN₂ management</li><li>Thawing process</li><li>Bull/semen fertility history</li></ul></div><div class="card"><h3>👨‍⚕️ Technician factors</h3><ul><li>Heat interpretation</li><li>Timing</li><li>Hygiene</li><li>Cervical manipulation / deposition</li><li>Record accuracy</li></ul></div></div>
+</section>
+
+<section id="pd" class="tab">
+<h2>Pregnancy Diagnosis & Follow-up</h2>
+<div class="card"><div class="grid"><div><label>AI date</label><input id="pddate" type="date"></div><div><label>PD method</label><select id="pdmethod"><option>Ultrasound</option><option>Rectal palpation</option><option>Other</option></select></div></div><button class="primary" onclick="pdPlan()">Build follow-up plan</button><p id="pdout" class="muted"></p></div>
+<div class="card"><h3>Follow-up record</h3><div class="check"><input type="checkbox"> Return-to-estrus monitoring completed</div><div class="check"><input type="checkbox"> Pregnancy status recorded</div><div class="check"><input type="checkbox"> Fetal viability assessed when appropriate</div><div class="check"><input type="checkbox"> Open cow entered into next-step investigation</div></div>
+</section>
+
+<section id="train" class="tab">
+<h2>AI Training Academy</h2>
+<div class="grid">
+<div class="card"><h3>Module 1 — Reproductive anatomy</h3><p class="muted">Cervix, uterine body, horns, ovaries, CL and follicular structures.</p></div>
+<div class="card"><h3>Module 2 — Estrus detection</h3><p class="muted">Standing heat, mounting, mucus, activity and silent/weak estrus.</p></div>
+<div class="card"><h3>Module 3 — Frozen semen</h3><p class="muted">Tank discipline, straw identification, thawing, drying and thermal protection.</p></div>
+<div class="card"><h3>Module 4 — Recto-vaginal AI</h3><p class="muted">Safe restraint, hygiene, cervical handling, gentle catheter passage and deposition.</p></div>
+<div class="card"><h3>Module 5 — Fertility audit</h3><p class="muted">Cow × semen × technician × timing × management framework.</p></div>
+<div class="card"><h3>Module 6 — Pregnancy diagnosis</h3><p class="muted">Ultrasound/rectal examination concepts and documentation.</p></div>
+<div class="card"><h3>Module 7 — Repeat breeder clinic</h3><p class="muted">Structured multifactorial work-up of conception failure.</p></div>
+<div class="card"><h3>Module 8 — Herd reproduction</h3><p class="muted">Conception rate, submission rate, pregnancy rate and technician benchmarking.</p></div>
+</div><br>
+<div class="card"><h3>Knowledge assessment</h3>
+<p>1. Why is accurate estrus detection important?</p><button class="secondary" onclick="quiz(1)">A. It improves timing decisions</button> <button class="secondary" onclick="quiz(0)">B. It replaces pregnancy diagnosis</button>
+<p>2. What should happen when catheter passage is unexpectedly difficult?</p><button class="secondary" onclick="quiz(1)">A. Stop and reassess</button> <button class="secondary" onclick="quiz(0)">B. Apply force</button>
+<p id="quizout"></p></div>
+</section>
+
+<section id="cases" class="tab">
+<h2>Clinical Case Simulator</h2>
+<div class="card"><h3>Case A — 3 services, not pregnant</h3><p class="muted">A cow is repeatedly inseminated, but heat detection is inconsistent and BCS is declining.</p><button class="secondary" onclick="caseA()">Reveal approach</button><p id="casea"></p></div><br>
+<div class="card"><h3>Case B — Technician-specific fertility problem</h3><p class="muted">The same semen batch is used by several technicians, but one technician's pregnancy rate is substantially lower.</p><button class="secondary" onclick="caseB()">Reveal approach</button><p id="caseb"></p></div><br>
+<div class="card"><h3>Case C — Abnormal discharge</h3><p class="muted">A cow presented for breeding has abnormal vaginal discharge.</p><button class="secondary" onclick="caseC()">Reveal approach</button><p id="casec"></p></div>
+</section>
+
+<section id="reports" class="tab">
+<h2>Fertility Dashboard</h2>
+<div class="card"><div class="grid"><div><label>Pregnant</label><input id="rp" type="number" value="20"></div><div><label>Inseminated</label><input id="rb" type="number" value="50"></div><div><label>Repeat breeders</label><input id="rr" type="number" value="5"></div></div><button class="primary" onclick="report()">Calculate KPIs</button><div id="reportout" class="grid" style="margin-top:14px"></div></div>
+<div class="card"><h3>Recommended audit sequence</h3><ol><li>Validate data quality.</li><li>Segment by farm, technician, bull/semen and parity.</li><li>Review heat-detection and timing errors.</li><li>Audit semen handling and LN₂ records.</li><li>Review postpartum disease and BCS.</li><li>Investigate repeat breeders individually.</li></ol></div>
+</section>
+</main>
+<footer>CRB Bovine Reproduction & AI Assistant • Educational prototype • Clinical decisions remain the responsibility of the attending veterinarian.</footer>
+<script>
+const KEY='crb_v2';let db=JSON.parse(localStorage.getItem(KEY)||'{"cows":[],"ai":[]}');
+function persist(){localStorage.setItem(KEY,JSON.stringify(db));dash();renderCows()}
+function tab(id,b){document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('nav button').forEach(x=>x.classList.remove('on'));b.classList.add('on');scrollTo(0,0)}
+function saveCow(){let c={id:cid.value,breed:breed.value,age:age.value,parity:parity.value,calving:calving.value,bcs:bcs.value,dpp:dpp.value,status:status.value,history:chistory.value};if(!c.id){cowmsg.textContent='Cow ID is required.';return}db.cows=db.cows.filter(x=>x.id!==c.id);db.cows.push(c);persist();cowmsg.textContent='Cow profile saved on this device.'}
+function clearCow(){document.querySelectorAll('#cow input,#cow textarea').forEach(x=>x.value='')}
+function saveAI(){let r={cow:aicow.value,date:aidate.value,bull:aibull.value,tech:aitech.value,service:aiservice.value,notes:ainotes.value};if(!r.cow||!r.date){aimsg.textContent='Cow ID and AI date are required.';return}db.ai.push(r);persist();aimsg.textContent='AI service saved.'}
+function renderCows(){cowtable.innerHTML=db.cows.length?'<div class="scroll"><table><tr><th>ID</th><th>Breed</th><th>Parity</th><th>BCS</th><th>Status</th></tr>'+db.cows.map(c=>`<tr><td>${c.id}</td><td>${c.breed}</td><td>${c.parity}</td><td>${c.bcs}</td><td>${c.status}</td></tr>`).join('')+'</table></div>':'<span class="small">No cow records.</span>'}
+function dash(){kcows.textContent=db.cows.length;kais.textContent=db.ai.length;let preg=db.ai.filter(x=>x.pregnant).length;kpreg.textContent=db.ai.length?Math.round(preg/db.ai.length*100)+'%':'0%';krep.textContent=db.cows.filter(x=>x.status==='Repeat breeder').length}
+function timing(){let t=heattime.value;if(!t){timingout.textContent='Enter the observed heat time.';return}timingout.textContent='Use the observed onset of standing heat and your validated farm AI SOP to determine insemination timing. Do not rely on a clock rule alone when heat onset is uncertain.'}
+function thawCheck(){thawout.textContent=thawsop.value==='Yes'?'Workflow acceptable: continue according to the validated semen-handling SOP and minimize thermal exposure after thawing.':'Stop and correct the semen-handling process before proceeding.'}
+function repeatAudit(){let a=+services.value, p=[];if(a>=3)p.push('High priority: structured repeat-breeder investigation.');if(rheat.value!=='Good')p.push('Audit heat detection and AI timing.');if(uterus.value!=='No concern')p.push('Assess postpartum uterine health and reproductive tract.');if(nutrition.value!=='Adequate')p.push('Review energy balance, BCS and nutrition.');if(semenaudit.value!=='Good')p.push('Audit semen storage, thawing, straw handling and technician performance.');if(exam.value!=='Normal')p.push('Perform/complete reproductive examination.');if(!p.length)p.push('Continue systematic review of cow, timing, semen, technician and herd factors.');repeatout.innerHTML='<b>Investigation priorities:</b><ul>'+p.map(x=>'<li>'+x+'</li>').join('')+'</ul>'}
+function pdPlan(){let d=new Date(pddate.value);if(isNaN(d)){pdout.textContent='Select AI date.';return}let x=new Date(d);x.setDate(x.getDate()+28);pdout.textContent='Plan an appropriate pregnancy-diagnosis visit according to your herd protocol and diagnostic method. Example planning date: '+x.toLocaleDateString()+'. Exact timing should be based on the method used and veterinarian judgement.'}
+function quiz(v){quizout.textContent=v?'Correct.':'Incorrect. Review the module.'}
+function caseA(){casea.textContent='Audit heat detection/timing, BCS and nutrition, postpartum uterine health, ovarian status, semen handling, technician technique and records before another routine AI.'}
+function caseB(){caseb.textContent='Compare service-level records by technician. Audit thawing, semen handling, timing, hygiene and deposition technique. A technician-specific pattern warrants direct skills/process review.'}
+function caseC(){casec.textContent='Do not treat as routine AI. Investigate the reproductive tract and manage disease according to examination findings and applicable veterinary protocols before breeding.'}
+function report(){let p=+rp.value,b=+rb.value,r=+rr.value;let cr=b?(p/b*100):0;reportout.innerHTML=`<div class="card"><b>Conception rate</b><div class="kpi">${cr.toFixed(1)}%</div></div><div class="card"><b>Repeat-breeder proportion</b><div class="kpi">${b?(r/b*100).toFixed(1):0}%</div></div><div class="card"><b>Services recorded</b><div class="kpi">${b}</div></div>`}
+dash();renderCows();
+</script>
+</body></html>
