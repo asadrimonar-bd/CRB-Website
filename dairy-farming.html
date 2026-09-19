@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>CRB Dairy Farming Bangladesh — Farmer Assistant</title>
+<meta name="description" content="বাংলাদেশের ডেইরি খামারির জন্য বয়সভিত্তিক পালন, খাদ্য, টিকা, AI, রোগ প্রতিরোধ, দুধ দোহন, ঘাস চাষ, রেকর্ড ও লাভ-ক্ষতি সহায়তা।">
+<link rel="stylesheet" href="style.css">
+<style>
+.dairy-app{background:#f8f3e8;min-height:100vh}.dairy-hero{padding:64px 0 36px;background:#241608;color:#fff}.dairy-hero h1{color:#fff;font-size:clamp(2.2rem,5vw,4rem)}.dairy-hero p{max-width:760px;color:#e9cd8e}.app-wrap{max-width:1180px;margin:auto;padding:28px 20px}.tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin-top:-34px;position:relative}.tool{border:0;background:#fff;padding:18px 12px;border-radius:16px;box-shadow:0 10px 30px #0001;text-align:left;cursor:pointer;font-weight:700;color:#3d2a1b}.tool span{display:block;font-size:24px;margin-bottom:6px}.panel{display:none;margin-top:28px;background:#fff;border:1px solid #e7dcc3;border-radius:22px;padding:26px;box-shadow:0 8px 30px #0000000b}.panel.active{display:block}.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}.info{padding:18px;border:1px solid #e7dcc3;border-radius:15px;background:#fcfaf4}.info h3{margin-top:0}.pill{display:inline-block;background:#f0e1bd;border-radius:99px;padding:5px 10px;margin:3px;font-size:.85rem}.warn{border-left:4px solid #a97c2f;padding:12px 15px;background:#fff8e8}.danger{border-left-color:#b44;background:#fff2f2}.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:12px}.calc label{font-size:.9rem;font-weight:600}.calc input,.calc select{width:100%;padding:11px;border:1px solid #d8ccb5;border-radius:9px;margin-top:5px}.result{margin-top:18px;padding:18px;background:#241608;color:#fff;border-radius:14px;font-size:1.05rem}.timeline{display:grid;gap:10px}.timeline div{padding:14px;border-left:4px solid #c89b3c;background:#fcfaf4;border-radius:8px}.back{margin-top:20px}.back button{background:none;border:0;text-decoration:underline;cursor:pointer}.small{font-size:.88rem;color:#6d5b48}.nav-tabs{display:flex;gap:8px;overflow:auto;margin:20px 0}.nav-tabs button{white-space:nowrap;border:1px solid #d8ccb5;background:#fff;border-radius:99px;padding:9px 14px;cursor:pointer}.nav-tabs button.on{background:#3d2a1b;color:#fff}
+</style>
+</head>
+<body>
+<header class="site-header"><div class="header-inner"><a href="index.html" class="brand"><img src="1787755400803.jpg" class="brand-mark" alt="CRB"><span class="brand-text"><span class="brand-name">Cattle Reproduction Bangladesh</span><span class="brand-sub">Dairy Farming Assistant</span></span></a><a class="btn btn-outline" href="index.html">CRB Home</a></div></header>
+<main class="dairy-app">
+<section class="dairy-hero"><div class="app-wrap"><p class="eyebrow">CRB • Farmer First • Bangladesh</p><h1>সফল ডেইরি খামার — এক অ্যাপে</h1><p>বয়সভিত্তিক পালন • খাদ্য ও পুষ্টি • টিকা • AI • প্রাথমিক সমস্যা সমাধান • Biosecurity • দুধ দোহন • ঘাস • খামারের হিসাব • Herd Record • Dairy Calendar</p></div></section>
+<div class="app-wrap">
+<div class="tools">
+<button class="tool" onclick="show('start')"><span>🏠</span>আজ কী করব?</button>
+<button class="tool" onclick="show('age')"><span>🐄</span>বয়সভিত্তিক পালন</button>
+<button class="tool" onclick="show('feed')"><span>🌾</span>খাদ্য ও ঘাস</button>
+<button class="tool" onclick="show('health')"><span>💉</span>স্বাস্থ্য/টিকা</button>
+<button class="tool" onclick="show('ai')"><span>❤️</span>AI & Reproduction</button>
+<button class="tool" onclick="show('bio')"><span>🛡️</span>Biosecurity</button>
+<button class="tool" onclick="show('records')"><span>📋</span>Herd Records</button>
+<button class="tool" onclick="show('money')"><span>৳</span>লাভ-ক্ষতি</button>
+</div>
+
+<section id="start" class="panel active"><h2>আজকের খামার চেকলিস্ট</h2><div class="cards">
+<div class="info"><h3>সকাল</h3><p>পরিষ্কার পানি → গোবর/মূত্র অপসারণ → অসুস্থ প্রাণী পর্যবেক্ষণ → পরিষ্কার হাতে ও পরিষ্কার পাত্রে দুধ দোহন → দুধ দ্রুত ঠান্ডা/ছায়ায় রাখা।</p></div>
+<div class="info"><h3>দুপুর</h3><p>পানি ও feed availability → heat signs → গরমে ventilation/shade → calf feeding → feed trough পরিষ্কার।</p></div>
+<div class="info"><h3>সন্ধ্যা</h3><p>দ্বিতীয় দোহন → milk record → estrus/AI/pregnancy due-date record → রাতের নিরাপত্তা ও শুকনো bedding।</p></div>
+</div><div class="warn">⚠️ জরুরি অবস্থা: শ্বাসকষ্ট, অচেতনতা, অতিরিক্ত রক্তপাত, প্রসব আটকে যাওয়া, severe bloat বা বিষক্রিয়ার সন্দেহ হলে ঘরোয়া চিকিৎসা না করে দ্রুত ভেটেরিনারিয়ানের সহায়তা নিন।</div></section>
+
+<section id="age" class="panel"><h2>বয়সভিত্তিক পালন</h2><div class="cards">
+<div class="info"><h3>জন্ম–২ মাস</h3><p>জন্মের পর দ্রুত ও পর্যাপ্ত colostrum; নাভি hygiene; পরিষ্কার শুকনো calf pen; milk/milk replacer পরিকল্পনা; calf starter ও পানি ধীরে পরিচয়; diarrhoea/respiratory signs নজরদারি।</p></div>
+<div class="info"><h3>২–৬ মাস</h3><p>Weaning-এর পর rumen development অনুযায়ী quality forage + concentrate; clean water; growth monitoring; deworming/vaccination শুধু স্থানীয় ভেটেরিনারি schedule অনুযায়ী।</p></div>
+<div class="info"><h3>৬–১২ মাস</h3><p>শরীরের বৃদ্ধি, body condition ও frame development লক্ষ্য করুন। অতিরিক্ত fattening নয়; ভালো forage, mineral balance ও exercise।</p></div>
+<div class="info"><h3>Heifer</h3><p>Breed/management অনুযায়ী target body weight ও breeding readiness নির্ধারণ করুন; শুধু বয়স দেখে breeding নয়—শরীরের বৃদ্ধি ও reproductive readiness বিবেচনা করুন।</p></div>
+<div class="info"><h3>Lactating cow</h3><p>Milk yield অনুযায়ী ration; পর্যাপ্ত পানি; comfortable resting area; udder hygiene; mastitis surveillance; heat detection ও timely AI।</p></div>
+<div class="info"><h3>Dry cow / close-up</h3><p>Dry period nutrition, body condition, clean calving area ও close-up monitoring পরিকল্পনা করুন।</p></div>
+</div></section>
+
+<section id="feed" class="panel"><h2>খাদ্য, পুষ্টি ও বাংলাদেশে ঘাস</h2><div class="cards">
+<div class="info"><h3>মূলনীতি</h3><p>Ration-এ forage + concentrate + mineral/vitamin + clean water-এর ভারসাম্য রাখুন। Milk yield, body weight, physiological stage ও forage quality অনুযায়ী ration formulate করা উচিত।</p></div>
+<div class="info"><h3>উপযোগী forage</h3><p><span class="pill">Napier/Hybrid Napier</span><span class="pill">German grass</span><span class="pill">Para grass</span><span class="pill">Guinea grass</span><span class="pill">Maize fodder</span><span class="pill">Oat (seasonal)</span><span class="pill">Legume fodder</span></p><p class="small">জাত/উপযোগিতা মাটি, মৌসুম, সেচ ও ব্যবস্থাপনার ওপর নির্ভর করে। স্থানীয় কৃষি/প্রাণিসম্পদ বিশেষজ্ঞের পরামর্শে variety নির্বাচন করুন।</p></div>
+<div class="info"><h3>Napier cultivation — quick SOP</h3><p>উর্বর ও পানি নিষ্কাশনযোগ্য জমি নির্বাচন → land preparation → stem/rooted slips বা উপযুক্ত planting material → line/spacing স্থানীয় recommendation অনুযায়ী → সেচ ও আগাছা নিয়ন্ত্রণ → balanced fertilizer/manure → পর্যায়ক্রমে কাটুন যাতে regrowth বজায় থাকে।</p></div>
+<div class="info"><h3>Silage</h3><p>ভালো quality maize/forage যথাযথ dry-matter অবস্থায় কেটে chop করে oxygen exclusion নিশ্চিত করে airtight storage করুন। Spoiled/moldy silage প্রাণীকে দেবেন না।</p></div>
+</div></section>
+
+<section id="health" class="panel"><h2>স্বাস্থ্য, টিকা ও দ্রুত সমস্যা শনাক্তকরণ</h2><div class="cards">
+<div class="info"><h3>Vaccination</h3><p>বাংলাদেশে রোগভেদে জাতীয়/স্থানীয় veterinary programme ও এলাকার disease risk অনুযায়ী schedule বদলাতে পারে। তাই টিকার নাম, বয়স, booster ও interval স্থানীয় DLS/ভেটেরিনারিয়ানের বর্তমান schedule থেকে confirm করুন।</p></div>
+<div class="info"><h3>Diarrhoea</h3><p>প্রথমে hydration, hygiene ও calf feeding review করুন। Dehydration, blood, fever, weakness বা persistent diarrhoea হলে দ্রুত veterinary assessment প্রয়োজন। Antibiotic নিজের সিদ্ধান্তে শুরু করবেন না।</p></div>
+<div class="info"><h3>Mastitis</h3><p>Milk abnormality, hot/swollen udder বা pain দেখলে আলাদা করুন, hygienic milking করুন এবং clinical case-এ vet-এর পরীক্ষা/প্রয়োজনে milk test অনুযায়ী treatment নিন।</p></div>
+<div class="info"><h3>Bloat</h3><p>বাম পাশ ফুলে যাওয়া, শ্বাসকষ্ট বা collapse হলে emergency। মুখে তেল/ওষুধ ঢালার ঝুঁকি আছে—তাৎক্ষণিক veterinary help নিন।</p></div>
+</div></section>
+
+<section id="ai" class="panel"><h2>Artificial Insemination & Reproduction</h2><div class="cards">
+<div class="info"><h3>Heat detection</h3><p>Standing to be mounted সবচেয়ে নির্ভরযোগ্য behavioural sign-গুলোর একটি। এছাড়া restlessness, mounting activity, vulvar changes, clear mucus ও reduced feed/milk pattern দেখা যেতে পারে।</p></div>
+<div class="info"><h3>AI timing</h3><p>Heat onset-এর সময় সঠিকভাবে record করুন এবং স্থানীয় AI guideline/technician protocol অনুযায়ী timing নির্ধারণ করুন। ভুল timing repeat breeding-এর একটি গুরুত্বপূর্ণ কারণ হতে পারে।</p></div>
+<div class="info"><h3>Repeat breeder flag</h3><p>একাধিক service-এর পরও conception না হলে শুধু বারবার AI না করে cow, uterus/ovary, semen/bull factor, heat detection, AI technique, nutrition ও disease factors review করুন।</p></div>
+<div class="info"><h3>Pregnancy follow-up</h3><p>AI date record → expected pregnancy-check date → pregnancy diagnosis → expected calving date → dry-off/close-up plan। সব record একই animal ID-তে রাখুন।</p></div>
+</div></section>
+
+<section id="bio" class="panel"><h2>Disease-free farming SOP & Biosecurity</h2><div class="cards">
+<div class="info"><h3>Entry control</h3><p>নতুন প্রাণী quarantine/observation; visitor control; clean footwear/clothing; sick animals-এর movement সীমিত করুন।</p></div>
+<div class="info"><h3>Housing hygiene</h3><p>শুকনো bedding, drainage, adequate ventilation, manure removal, clean water trough এবং overcrowding এড়ানো।</p></div>
+<div class="info"><h3>Milking hygiene</h3><p>Clean udder → clean/dry teats → first streams check → clean milking equipment → post-milking teat hygiene → milk দ্রুত ঠান্ডা করা।</p></div>
+<div class="info"><h3>Feed safety</h3><p>Moldy feed নয়; feed store শুকনো/rodent protected; clean trough; water source protected।</p></div>
+</div></section>
+
+<section id="records" class="panel"><h2>Herd & Milk Record</h2><div class="cards">
+<div class="info"><h3>প্রতি গাভী</h3><p>Animal ID, breed, DOB, parity, service dates, bull/semen code, heat dates, pregnancy diagnosis, calving, disease/treatment, vaccination, body condition ও milk yield।</p></div>
+<div class="info"><h3>Daily milk</h3><p>তারিখ + সকাল kg/L + সন্ধ্যা kg/L + total + abnormal milk/mastitis note + feed change। মাসিক average ও peak yield বের করুন।</p></div>
+<div class="info"><h3>Dairy calendar</h3><p>AI → pregnancy check → dry-off → close-up → expected calving → postpartum check → first heat → next AI।</p></div>
+</div></section>
+
+<section id="money" class="panel"><h2>লাভ–ক্ষতি Calculator</h2><div class="calc">
+<label>দৈনিক দুধ (L)<input id="milk" type="number" value="20"></label>
+<label>দুধের দাম/L (৳)<input id="price" type="number" value="60"></label>
+<label>দৈনিক feed cost (৳)<input id="feedc" type="number" value="700"></label>
+<label>অন্যান্য daily cost (৳)<input id="other" type="number" value="200"></label>
+<label>দিন/মাস<input id="days" type="number" value="30"></label>
+</div><button class="btn btn-gold" style="margin-top:15px" onclick="calc()">Calculate</button><div id="moneyResult" class="result">আপনার হিসাব দেখতে Calculate চাপুন।</div></section>
+
+<div class="panel" style="display:block"><h2>CRB Farmer Rule</h2><p><strong>Record → Observe → Identify risk → Correct management → Consult veterinarian → Recheck.</strong></p><p class="small">এই অ্যাপটি farmer education ও farm management support-এর জন্য। নির্দিষ্ট রোগ নির্ণয়, prescription বা antibiotic/medicine dose-এর বিকল্প নয়। টিকা ও চিকিৎসা স্থানীয় registered veterinarian/DLS programme-এর সঙ্গে মিলিয়ে নিন।</p></div>
+</div></main>
+<script>
+function show(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);el.classList.add('active');el.scrollIntoView({behavior:'smooth',block:'start'})}
+function calc(){const m=+milk.value||0,p=+price.value||0,f=+feedc.value||0,o=+other.value||0,d=+days.value||30;const rev=m*p*d,cost=(f+o)*d;moneyResult.innerHTML='মাসিক দুধ বিক্রি: <b>৳'+rev.toLocaleString()+'</b><br>মাসিক পরিচালন খরচ: <b>৳'+cost.toLocaleString()+'</b><br>আনুমানিক gross margin: <b>৳'+(rev-cost).toLocaleString()+'</b><br><span class="small">এতে depreciation, labour valuation, breeding, veterinary, mortality, loan interest ও capital cost ধরা হয়নি।</span>'}
+</script>
+</body></html>
