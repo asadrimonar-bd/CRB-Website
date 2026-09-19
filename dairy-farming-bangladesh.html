@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="bn">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#176b45">
+<meta name="description" content="CRB Dairy Farming Bangladesh — farmer-friendly dairy management, feeding, health, reproduction, records and farm economics.">
+<link rel="manifest" href="dairy-manifest.json">
+<title>CRB Dairy Farming Bangladesh</title>
+<style>
+:root{--g:#176b45;--g2:#0e5135;--lime:#eaf6ef;--gold:#d7a83b;--ink:#183128;--muted:#61736b;--bg:#f6f8f7;--card:#fff;--danger:#b42318;--shadow:0 8px 28px rgba(19,55,40,.08)}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,BlinkMacSystemFont,"Noto Sans Bengali","Segoe UI",sans-serif;background:var(--bg);color:var(--ink);line-height:1.55}button,input,select,textarea{font:inherit}button{cursor:pointer}
+header{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.96);backdrop-filter:blur(10px);border-bottom:1px solid #e5ece8}.top{max-width:1150px;margin:auto;padding:12px 16px;display:flex;align-items:center;gap:12px}.logo{width:42px;height:42px;border-radius:12px;background:var(--g);display:grid;place-items:center;color:#fff;font-weight:800}.brand b{display:block}.brand span{font-size:12px;color:var(--muted)}
+nav{display:flex;gap:6px;margin-left:auto;overflow:auto}.navbtn{border:0;background:transparent;padding:9px 11px;border-radius:10px;color:#395047}.navbtn.active,.navbtn:hover{background:var(--lime);color:var(--g);font-weight:700}
+main{max-width:1150px;margin:auto;padding:18px 16px 60px}.hero{background:linear-gradient(135deg,#0f5939,#1f8154);color:#fff;border-radius:22px;padding:28px;margin-bottom:18px;box-shadow:var(--shadow)}.hero h1{font-size:clamp(26px,5vw,42px);margin:0 0 8px}.hero p{max-width:760px;margin:8px 0;color:#e7f4ed}.pills{display:flex;flex-wrap:wrap;gap:8px;margin-top:16px}.pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);padding:7px 10px;border-radius:999px;font-size:13px}
+.section{display:none}.section.active{display:block}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}.card{background:var(--card);border:1px solid #e5ece8;border-radius:16px;padding:18px;box-shadow:var(--shadow)}.card h3{margin:5px 0 7px;font-size:18px}.card p{color:var(--muted);margin:0 0 12px}.icon{font-size:28px}.btn{border:0;border-radius:10px;padding:10px 14px;background:var(--g);color:#fff;font-weight:700}.btn.alt{background:#edf5f0;color:var(--g)}.btn.warn{background:#fff4d6;color:#765400}.btn.danger{background:#feeceb;color:var(--danger)}
+h2{margin:8px 0 14px;font-size:25px}.sub{color:var(--muted)}.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}.list{display:grid;gap:10px}.item{background:#fff;border:1px solid #e5ece8;border-radius:13px;padding:14px}.item strong{display:block;margin-bottom:3px}.tag{display:inline-block;padding:4px 8px;border-radius:999px;background:var(--lime);color:var(--g);font-size:12px;font-weight:700}
+table{width:100%;border-collapse:collapse;background:#fff;border-radius:14px;overflow:hidden}th,td{padding:10px;border-bottom:1px solid #edf1ef;text-align:left;font-size:14px}th{background:#f0f6f2}.scroll{overflow:auto}
+label{display:block;font-size:13px;font-weight:700;margin:9px 0 4px}input,select,textarea{width:100%;padding:10px;border:1px solid #ccd9d2;border-radius:9px;background:#fff}textarea{min-height:90px}.formgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:8px}.result{background:#eff8f2;border:1px solid #cfe6d8;padding:14px;border-radius:12px;margin-top:10px}.alert{background:#fff8e6;border-left:4px solid var(--gold);padding:12px;border-radius:10px;margin:10px 0}.emergency{background:#fff0ef;border-left:4px solid var(--danger);padding:12px;border-radius:10px}
+small,.muted{color:var(--muted)}.source{font-size:12px;color:var(--muted);margin-top:10px}.source a{color:var(--g)}
+footer{padding:24px 16px;text-align:center;color:var(--muted);font-size:12px}
+@media(max-width:700px){nav{display:none}.top{padding:10px}.hero{padding:22px}.card{padding:15px}}
+</style>
+</head>
+<body>
+<header><div class="top"><div class="logo">CRB</div><div class="brand"><b>Dairy Farming Bangladesh</b><span>Farmer-first farm management</span></div><nav id="nav"></nav></div></header>
+<main>
+<section class="hero">
+<h1>সফল ডেইরি ফার্ম — এক অ্যাপেই</h1>
+<p>বয়সভিত্তিক পালন, খাদ্য ও পুষ্টি, টিকা, AI, প্রজনন, জরুরি first aid, biosecurity, দুধ, herd record, খরচ–আয়, ঘাস চাষ এবং দৈনিক farm routine—সবকিছু সহজ ভাষায়।</p>
+<div class="pills"><span class="pill">বাংলাদেশ-কেন্দ্রিক</span><span class="pill">Problem → Solution</span><span class="pill">Offline-friendly</span><span class="pill">Free</span></div>
+</section>
+
+<div id="home" class="section active">
+<h2>আজকের Farm Control Panel</h2>
+<div class="grid">
+<div class="card"><div class="icon">🐄</div><h3>আজকের কাজ</h3><p>সকাল–দুপুর–সন্ধ্যার routine এবং hygiene checklist.</p><button class="btn" onclick="show('routine')">খুলুন</button></div>
+<div class="card"><div class="icon">🥬</div><h3>খাদ্য ও ঘাস</h3><p>বয়স/উৎপাদন অনুযায়ী feeding principles ও বাংলাদেশে উপযোগী fodder.</p><button class="btn" onclick="show('feeding')">খুলুন</button></div>
+<div class="card"><div class="icon">❤️</div><h3>Health & First Aid</h3><p>লক্ষণ দেখে প্রথম করণীয়, isolation ও কখন vet ডাকবেন.</p><button class="btn" onclick="show('health')">খুলুন</button></div>
+<div class="card"><div class="icon">🧬</div><h3>AI & Reproduction</h3><p>Heat detection, AI timing, pregnancy check ও repeat breeder workflow.</p><button class="btn" onclick="show('repro')">খুলুন</button></div>
+<div class="card"><div class="icon">📒</div><h3>Herd Records</h3><p>গরু, দুধ, AI, pregnancy ও farm events-এর record রাখুন.</p><button class="btn" onclick="show('records')">খুলুন</button></div>
+<div class="card"><div class="icon">৳</div><h3>Farm Economics</h3><p>আয়–ব্যয়–লাভ, milk break-even ও feed-cost হিসাব করুন.</p><button class="btn" onclick="show('economics')">খুলুন</button></div>
+</div>
+<div class="alert"><b>ভেটেরিনারি সতর্কতা:</b> এই অ্যাপটি farm-management education ও decision support-এর জন্য। গুরুতর অসুস্থতা, প্রসব জটিলতা, poisoning, severe bloat, injury, high fever বা suspected contagious disease হলে দ্রুত নিবন্ধিত veterinarian/DLS service নিন। Antibiotic/হরমোন নিজে থেকে ব্যবহার করবেন না।</div>
+</div>
+
+<div id="routine" class="section"><h2>দৈনিক Farm Schedule & Hygiene</h2><p class="sub">সময় farm অনুযায়ী সামঞ্জস্য করুন; consistency সবচেয়ে গুরুত্বপূর্ণ।</p><div class="grid">
+<div class="card"><span class="tag">ভোর</span><h3>Milking + inspection</h3><p>পরিষ্কার হাত/উদর, foremilk check, পরিষ্কার দুধের পাত্র, teat dipping/approved hygiene practice, অসুস্থ cow আলাদা করে দুধ ব্যবস্থাপনা।</p></div>
+<div class="card"><span class="tag">সকাল</span><h3>Feed + water</h3><p>পরিষ্কার পানি, forage আগে/সুষম ration, feed refusal ও appetite দেখুন। হঠাৎ ration change নয়।</p></div>
+<div class="card"><span class="tag">দুপুর</span><h3>Heat & health walk</h3><p>খাবার, rumination, manure, lameness, discharge, respiration, temperature/abnormal behaviour নজরে রাখুন।</p></div>
+<div class="card"><span class="tag">সন্ধ্যা</span><h3>Milking + records</h3><p>দুধের পরিমাণ লিখুন; AI/heat/medicine/calving events একই দিনে record করুন।</p></div>
+<div class="card"><span class="tag">প্রতিদিন</span><h3>Biosecurity</h3><p>visitor control, clean footwear, manure removal, sick-animal isolation, equipment disinfection এবং dead-animal safe disposal plan.</p></div>
+</div>
+<div class="card"><h3>Milking hygiene checklist</h3><div class="formgrid"><label><input type="checkbox"> পরিষ্কার milking area</label><label><input type="checkbox"> পরিষ্কার udder/teat</label><label><input type="checkbox"> Foremilk পর্যবেক্ষণ</label><label><input type="checkbox"> আলাদা অসুস্থ cow milk</label><label><input type="checkbox"> পরিষ্কার container</label><label><input type="checkbox"> Post-milking teat hygiene</label></div></div>
+</div>
+
+<div id="feeding" class="section"><h2>Feeding, Nutrition & Fodder</h2><div class="grid">
+<div class="card"><h3>Calf: 0–2 months</h3><p>Colostrum management, clean milk/milk replacer strategy, calf starter, clean water, hygiene and gradual rumen development. Exact volumes should follow calf body weight and veterinary/nutrition guidance.</p></div>
+<div class="card"><h3>Growing heifer</h3><p>Target steady frame growth, adequate protein/energy/minerals, forage quality and avoid excessive fatness before breeding.</p></div>
+<div class="card"><h3>Dry cow</h3><p>Manage body condition, forage quality, mineral program and transition diet. Prevent sudden diet changes and over-conditioning.</p></div>
+<div class="card"><h3>Lactating cow</h3><p>Balance forage, concentrate, protein, energy, effective fibre, minerals and water according to body weight, milk yield and stage of lactation.</p></div>
+</div>
+<div class="card"><h3>বাংলাদেশে ব্যবহারযোগ্য fodder options</h3><p><b>Napier/Pakchong, maize fodder, German/Jumbo-type grasses, para/kolmi and seasonal legume/forage options</b> can be considered according to soil, water and local availability. DLS published an improved grass cultivation guide in 2024. citeturn0search1</p><p>Napier is widely cultivated in northern Bangladesh; recent reporting notes expansion in Rangpur division and repeated harvesting under good management. citeturn0search5turn0search12</p><h4>Napier cultivation workflow</h4><ol><li>Well-drained fertile plot and clean planting material.</li><li>Prepare land and use locally recommended spacing/manure/fertilizer.</li><li>Plant cuttings/slips in suitable moisture; irrigate as needed.</li><li>Weed control and periodic nutrient management.</li><li>Harvest at an appropriate leafy stage; chop before feeding.</li><li>Rotate plots to maintain year-round supply.</li></ol><p class="source">Reference: <a href="https://dls.gov.bd/pages/publications" target="_blank">DLS Publications</a> and Bangladesh Agricultural University research on Napier management. citeturn0search1turn0search14</p></div>
+</div>
+
+<div id="repro" class="section"><h2>Artificial Insemination & Reproductive Management</h2><div class="grid">
+<div class="card"><h3>Heat detection</h3><p>Standing to be mounted is a key sign. Also monitor restlessness, mounting activity, clear mucus, vulval changes, reduced feed intake or milk changes. Use multiple observations/day.</p></div>
+<div class="card"><h3>AI timing</h3><p>Base AI on observed onset of standing heat and the farm's approved AI protocol. Record exact heat onset and service time. Do not inseminate solely from mucus without assessing heat.</p></div>
+<div class="card"><h3>Pregnancy management</h3><p>Record service date, expected pregnancy-check window and outcome. If not pregnant, review heat detection, semen handling, technician technique, uterine/ovarian status, nutrition and disease before simply repeating AI.</p></div>
+<div class="card"><h3>Repeat breeder workflow</h3><p>After repeated unsuccessful services, perform structured history + reproductive examination and investigate cow, bull/semen, technician, timing, nutrition and infectious/non-infectious causes.</p></div>
+</div><div class="alert">AI practice should follow Bangladesh DLS/approved training and technician protocols. DLS publishes guidance related to artificial breeding implementation. citeturn0search0</div></div>
+
+<div id="health" class="section"><h2>Health, Vaccination & First Aid</h2><div class="grid">
+<div class="card"><h3>Vaccination</h3><p>Maintain a farm vaccination calendar based on DLS/local veterinary recommendations, disease risk, vaccine label and regional epidemiology. Keep batch, date, animal ID and next due date.</p><p>DLS provides vaccination-related guidance and disease-control materials, including LSD guidance. citeturn0search3turn0search8</p></div>
+<div class="card"><h3>First aid: diarrhoea</h3><p>Isolate when infectious disease is possible, maintain hydration, continue appropriate nutrition, monitor temperature and dehydration. Calves can deteriorate quickly—seek veterinary help early.</p></div>
+<div class="card"><h3>First aid: bloat</h3><p><b>Emergency.</b> Stop access to the suspected feed, keep the animal calm and contact a veterinarian immediately—especially if breathing is difficult or the left flank is severely distended.</p></div>
+<div class="card"><h3>First aid: injury</h3><p>Control bleeding with clean pressure, protect wound from contamination and seek veterinary assessment for deep wounds, fractures, severe lacerations or infection.</p></div>
+<div class="card"><h3>Mastitis suspicion</h3><p>Abnormal milk, swollen/hot painful udder or systemic illness requires prompt veterinary assessment. Follow milk-withdrawal instructions for any medicine used.</p></div>
+<div class="card"><h3>Emergency red flags</h3><p>Severe respiratory distress, recumbency, prolonged dystocia, severe bloat, poisoning, seizures, heavy bleeding, sudden death or multiple animals sick → isolate safely and contact veterinarian/DLS service urgently.</p></div>
+</div><div class="emergency"><b>Antimicrobial stewardship:</b> DLS published a Veterinary Antimicrobial Stewardship Guideline in 2026. Avoid casual antibiotic use and follow veterinary diagnosis, dose, duration and withdrawal requirements. citeturn0search0</div></div>
+
+<div id="housing" class="section"><h2>Housing & Biosecurity</h2><div class="grid">
+<div class="card"><h3>Ideal housing</h3><p>Dry, well-drained floor; good ventilation without harmful drafts; adequate resting space; non-slip walking surface; clean feed/water points; manure drainage; shade and heat-stress mitigation.</p></div>
+<div class="card"><h3>Quarantine</h3><p>New arrivals should be separated and observed/tested according to farm risk and veterinary plan before mixing.</p></div>
+<div class="card"><h3>Disease-free SOP</h3><p>Source healthy animals → quarantine → vaccination/health verification → clean housing → controlled visitors → dedicated tools where possible → daily observation → rapid isolation → veterinary diagnosis → treatment and withdrawal records → controlled movement.</p></div>
+<div class="card"><h3>Calf area</h3><p>Clean, dry, well-ventilated individual/group system appropriate to local welfare and disease-control needs; disinfect equipment and avoid mixing age groups unnecessarily.</p></div>
+</div></div>
+
+<div id="phenotype" class="section"><h2>Ideal Dairy Cow: Practical Phenotypic Checklist</h2><div class="card"><p>Use this as a selection checklist, not a breed-standard replacement.</p><table><thead><tr><th>Trait</th><th>What to look for</th></tr></thead><tbody>
+<tr><td>Udder</td><td>Well-attached, balanced quarters, appropriate teat placement, no chronic mastitis history</td></tr>
+<tr><td>Feet & legs</td><td>Sound locomotion, strong pasterns/hoof health, no chronic lameness</td></tr>
+<tr><td>Body condition</td><td>Moderate condition appropriate to stage; avoid extreme thinness/fatness</td></tr>
+<tr><td>Body capacity</td><td>Good chest/rib capacity and functional body frame</td></tr>
+<tr><td>Reproduction</td><td>Regular cycles, timely conception, normal calving history</td></tr>
+<tr><td>Temperament</td><td>Docile, manageable, safe for milking</td></tr>
+<tr><td>Production</td><td>Reliable milk yield with acceptable components and health records</td></tr>
+</tbody></table></div></div>
+
+<div id="records" class="section"><h2>Farm Records</h2><div class="toolbar"><button class="btn" onclick="openCowForm()">+ Add cow</button><button class="btn alt" onclick="clearRecords()">Clear local records</button></div><div class="card"><div id="cowForm"></div><div class="scroll"><table><thead><tr><th>ID</th><th>Breed</th><th>DOB</th><th>Parity</th><th>Notes</th></tr></thead><tbody id="cowRows"></tbody></table></div></div>
+<div class="grid" style="margin-top:14px"><div class="card"><h3>Milk record</h3><div class="formgrid"><div><label>Milk (L/day)</label><input id="milk" type="number" step=".1"></div><div><label>Price/L (৳)</label><input id="price" type="number" value="65"></div></div><button class="btn" onclick="calcMilk()">Calculate</button><div id="milkResult"></div></div>
+<div class="card"><h3>Dairy calendar</h3><p>Record breeding, expected calving, dry-off, vaccination, deworming, hoof trimming, pregnancy check and health events against each animal ID.</p><button class="btn alt" onclick="show('economics')">Open calculator</button></div></div></div>
+
+<div id="economics" class="section"><h2>Income–Expense–Profit Calculator</h2><div class="card"><div class="formgrid">
+<div><label>Milk L/day</label><input id="eMilk" type="number" value="10"></div><div><label>Milk price ৳/L</label><input id="ePrice" type="number" value="65"></div>
+<div><label>Concentrate ৳/day</label><input id="eConc" type="number" value="300"></div><div><label>Forage ৳/day</label><input id="eForage" type="number" value="100"></div>
+<div><label>Labour ৳/day</label><input id="eLabour" type="number" value="100"></div><div><label>Other ৳/day</label><input id="eOther" type="number" value="50"></div>
+</div><button class="btn" onclick="calcProfit()">Calculate daily/monthly</button><div id="profitResult"></div></div>
+<div class="card"><h3>Important economics</h3><p>Track feed cost/kg DM where possible, milk yield/cow/day, reproductive losses, calf value, culling income, veterinary expense and fixed costs. Profit should be calculated from actual farm records, not generic assumptions.</p></div></div>
+
+<div id="library" class="section"><h2>Bangladesh Dairy Knowledge Library</h2><div class="list">
+<div class="item"><strong>Age-wise management</strong> Birth → colostrum → calf starter → weaning → growing heifer → breeding → close-up dry cow → calving → lactation → dry period.</div>
+<div class="item"><strong>Nutrition</strong> Forage quality + concentrate + protein/energy + effective fibre + minerals + clean water; ration must match production stage.</div>
+<div class="item"><strong>Vaccination</strong> Use current DLS/local veterinary recommendations and vaccine labels; keep a dated farm register.</div>
+<div class="item"><strong>Biosecurity</strong> Prevent introduction, reduce spread, identify sick animals early, isolate, disinfect and control movement.</div>
+<div class="item"><strong>Records</strong> Animal ID, birth, breed, parity, heat, AI, pregnancy, calving, disease, treatment, milk, feed, culling and financial records.</div>
+<div class="item"><strong>Sources</strong> DLS publications/guidelines, BLRI/BAU research and peer-reviewed evidence should be the foundation; local vet confirmation is required for patient-specific treatment.</div>
+</div></div>
+
+<div id="about" class="section"><h2>About this app</h2><div class="card"><p><b>CRB Dairy Farming Bangladesh</b> is a free farmer-facing extension tool designed around practical problem solving. It is not a substitute for veterinary examination or government disease-control instructions.</p><p>Core principle: <b>Observe → Record → Identify risk → Take safe first action → Call the right professional → Follow up.</b></p><p>Content is aligned with publicly available Bangladesh DLS guidance and current livestock research where practical. DLS currently publishes Standard Treatment Guidelines for Large Animal and Veterinary Antimicrobial Stewardship guidance. citeturn0search0turn0search1</p></div></div>
+</main>
+<footer>CRB Dairy Farming Bangladesh · Free farmer tool · Built for practical dairy management in Bangladesh</footer>
+<script>
+const sections=[['home','🏠 Home'],['routine','⏰ Routine'],['feeding','🥬 Feeding'],['repro','🧬 AI & Repro'],['health','🩺 Health'],['housing','🏠 Housing'],['phenotype','🐄 Ideal Cow'],['records','📒 Records'],['economics','৳ Economics'],['library','📚 Library'],['about','ℹ️ About']];
+const nav=document.getElementById('nav'); nav.innerHTML=sections.map(x=>`<button class="navbtn" data-s="${x[0]}" onclick="show('${x[0]}')">${x[1]}</button>`).join('');
+function show(id){document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('.navbtn').forEach(b=>b.classList.toggle('active',b.dataset.s===id));scrollTo({top:0,behavior:'smooth'});if(id==='records')renderCows()}
+document.querySelector('.navbtn').classList.add('active');
+let cows=JSON.parse(localStorage.getItem('crb_cows')||'[]');
+function openCowForm(){document.getElementById('cowForm').innerHTML=`<div class="formgrid"><div><label>Animal ID</label><input id="cId"></div><div><label>Breed</label><input id="cBreed"></div><div><label>Date of birth</label><input id="cDob" type="date"></div><div><label>Parity</label><input id="cParity" type="number" min="0"></div></div><label>Notes</label><textarea id="cNotes"></textarea><div class="toolbar"><button class="btn" onclick="saveCow()">Save</button><button class="btn alt" onclick="document.getElementById('cowForm').innerHTML=''">Cancel</button></div>`}
+function saveCow(){const c={id:cId.value.trim(),breed:cBreed.value,dob:cDob.value,parity:cParity.value,notes:cNotes.value};if(!c.id)return alert('Animal ID দিন');cows.push(c);localStorage.setItem('crb_cows',JSON.stringify(cows));document.getElementById('cowForm').innerHTML='';renderCows()}
+function renderCows(){document.getElementById('cowRows').innerHTML=cows.map(c=>`<tr><td><b>${c.id}</b></td><td>${c.breed||'-'}</td><td>${c.dob||'-'}</td><td>${c.parity||0}</td><td>${c.notes||'-'}</td></tr>`).join('')||'<tr><td colspan="5">No records yet.</td></tr>'}
+function clearRecords(){if(confirm('সব local cow records মুছবেন?')){cows=[];localStorage.removeItem('crb_cows');renderCows()}}
+function calcMilk(){let m=+milk.value||0,p=+price.value||0;milkResult.innerHTML=`<div class="result"><b>দৈনিক milk revenue:</b> ৳${(m*p).toFixed(0)}<br><b>৩০ দিনে:</b> ৳${(m*p*30).toFixed(0)}</div>`}
+function calcProfit(){let rev=(+eMilk.value||0)*(+ePrice.value||0),cost=(+eConc.value||0)+(+eForage.value||0)+(+eLabour.value||0)+(+eOther.value||0),net=rev-cost;profitResult.innerHTML=`<div class="result"><b>Daily revenue:</b> ৳${rev.toFixed(0)}<br><b>Daily operating cost:</b> ৳${cost.toFixed(0)}<br><b>Daily operating margin:</b> ৳${net.toFixed(0)}<br><b>30-day:</b> ৳${(net*30).toFixed(0)}</div>`}
+if('serviceWorker' in navigator) navigator.serviceWorker.register('dairy-sw.js').catch(()=>{});
+</script>
+</body></html>
