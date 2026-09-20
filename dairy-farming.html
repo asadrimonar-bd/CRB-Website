@@ -22,7 +22,7 @@
 <button class="tool" onclick="show('health')"><span>💉</span>স্বাস্থ্য/টিকা</button>
 <button class="tool" onclick="show('ai')"><span>❤️</span>AI & Reproduction</button>
 <button class="tool" onclick="show('bio')"><span>🛡️</span>Biosecurity</button>
-<button class="tool" onclick="show('records')"><span>📋</span>Herd Records</button>
+<button class="tool" onclick="show('cow')"><span>🐮</span>আদর্শ গাভী</button><button class="tool" onclick="show('grass')"><span>🌱</span>ঘাস চাষ</button><button class="tool" onclick="show('sop')"><span>🛡️</span>Disease-free SOP</button><button class="tool" onclick="show('animal')"><span>📅</span>Animal Calendar</button><button class="tool" onclick="show('solver')"><span>🩺</span>Problem Solver</button><button class="tool" onclick="show('records')"><span>📋</span>Herd Records</button>
 <button class="tool" onclick="show('money')"><span>৳</span>লাভ-ক্ষতি</button>
 </div>
 
@@ -69,6 +69,32 @@
 <div class="info"><h3>Feed safety</h3><p>Moldy feed নয়; feed store শুকনো/rodent protected; clean trough; water source protected।</p></div>
 </div></section>
 
+<section id="cow" class="panel"><h2>আদর্শ দুধাল গাভী — Phenotypic Guide</h2><div class="cards">
+<div class="info"><h3>শরীর ও পা</h3><p>সুসমঞ্জস dairy frame, ভালো body capacity, শক্ত ও সঠিকভাবে স্থাপিত পা-খুর, স্বাভাবিক gait। Breed ও production system অনুযায়ী গঠন কিছুটা ভিন্ন হতে পারে।</p></div>
+<div class="info"><h3>Udder</h3><p>ভালোভাবে attached, symmetrical udder এবং সঠিকভাবে স্থাপিত teat; chronic mastitis বা অতিরিক্ত pendulous udder-এর ইতিহাসকে গুরুত্ব দিন।</p></div>
+<div class="info"><h3>স্বাস্থ্য ও selection</h3><p>উজ্জ্বল চোখ, স্বাভাবিক appetite, clean skin/hair coat, উপযুক্ত BCS ও স্বাভাবিক locomotion। Milk yield, fertility, disease history, pedigree/parent performance ও records একসঙ্গে বিবেচনা করুন।</p></div>
+</div></section>
+<section id="grass" class="panel"><h2>বাংলাদেশে ঘাস ও fodder cultivation</h2><div class="cards">
+<div class="info"><h3>Napier / Hybrid Napier</h3><p>উর্বর ও পানি নিষ্কাশনযোগ্য জমি → healthy stem/rooted planting material → সারি করে রোপণ → সেচ/আগাছা নিয়ন্ত্রণ → balanced manure/fertilizer → উপযুক্ত বয়সে কাটুন এবং regrowth বজায় রাখুন।</p></div>
+<div class="info"><h3>German / Para / Guinea</h3><p>মাটি, পানি ও মৌসুম অনুযায়ী species নির্বাচন করুন; land preparation, planting, weed control, irrigation ও regular cutting management করুন।</p></div>
+<div class="info"><h3>Fodder maize / Oat</h3><p>Maize fodder দ্রুত biomass দিতে পারে; Oat শীত মৌসুমে উপযোগী হতে পারে। বীজ, sowing time ও fertilizer স্থানীয় extension recommendation অনুযায়ী ঠিক করুন।</p></div>
+<div class="info"><h3>Legume forage</h3><p>উপযুক্ত legume forage ration-এর protein contribution বাড়াতে পারে। Species ও ration balance বিবেচনা করুন।</p></div>
+</div><div class="warn">Exact spacing, fertilizer dose ও cutting interval জাত, মাটি, মৌসুম ও ব্যবস্থাপনার ওপর নির্ভর করে—স্থানীয় DAE/DLS extension recommendation অনুসরণ করুন।</div></section>
+<section id="sop" class="panel"><h2>Disease-Free Dairy Farm SOP</h2><div class="timeline">
+<div><b>01 • Animal sourcing:</b> health history, identification ও vaccination record যাচাই; নতুন প্রাণী quarantine/observation।</div>
+<div><b>02 • Isolation:</b> fever, cough, diarrhoea, mastitis, lameness বা abnormal discharge থাকা প্রাণী আলাদা করুন।</div>
+<div><b>03 • Prevention:</b> current local vaccination/deworming programme, visitor control ও clean footwear রাখুন।</div>
+<div><b>04 • Feed/water:</b> mold-free feed, protected storage, clean trough ও safe drinking water নিশ্চিত করুন।</div>
+<div><b>05 • Milking:</b> clean-dry udder, forestrip, hygienic equipment, post-milking teat care ও rapid cooling।</div>
+<div><b>06 • Waste/pest:</b> daily manure removal, drainage, fly/rodent control ও safe dead-stock disposal।</div>
+<div><b>07 • Treatment:</b> diagnosis-based treatment, medicine record ও withdrawal period strictly maintain করুন।</div>
+</div></section>
+<section id="animal" class="panel"><h2>Animal Profile & Dairy Calendar</h2><div class="calc">
+<label>Animal ID<input id="animalId" placeholder="COW-001"></label>
+<label>Breed<input id="breed" placeholder="HF Cross"></label>
+<label>Last AI date<input id="aiDate" type="date"></label>
+</div><button class="btn btn-gold" style="margin-top:15px" onclick="saveAnimal()">Save profile</button><button class="btn btn-outline" style="margin:15px 0 0 8px" onclick="makeCalendar()">Create calendar</button><div id="animalResult" class="result">AI date দিলে calendar দেখাবে।</div></section>
+<section id="solver" class="panel"><h2>Farmer Problem Solver</h2><div class="nav-tabs"><button onclick="problem('milk')">দুধ কম</button><button onclick="problem('heat')">Heat/AI</button><button onclick="problem('mastitis')">Mastitis</button><button onclick="problem('calf')">Calf diarrhoea</button><button onclick="problem('bloat')">Bloat</button></div><div id="problemResult" class="info"><h3>একটি সমস্যা নির্বাচন করুন</h3><p>লক্ষণ, immediate action এবং কখন vet ডাকবেন—এভাবে সহায়তা করবে।</p></div></section>
 <section id="records" class="panel"><h2>Herd & Milk Record</h2><div class="cards">
 <div class="info"><h3>প্রতি গাভী</h3><p>Animal ID, breed, DOB, parity, service dates, bull/semen code, heat dates, pregnancy diagnosis, calving, disease/treatment, vaccination, body condition ও milk yield।</p></div>
 <div class="info"><h3>Daily milk</h3><p>তারিখ + সকাল kg/L + সন্ধ্যা kg/L + total + abnormal milk/mastitis note + feed change। মাসিক average ও peak yield বের করুন।</p></div>
@@ -88,5 +114,7 @@
 <script>
 function show(id){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('active'));const el=document.getElementById(id);el.classList.add('active');el.scrollIntoView({behavior:'smooth',block:'start'})}
 function calc(){const m=+milk.value||0,p=+price.value||0,f=+feedc.value||0,o=+other.value||0,d=+days.value||30;const rev=m*p*d,cost=(f+o)*d;moneyResult.innerHTML='মাসিক দুধ বিক্রি: <b>৳'+rev.toLocaleString()+'</b><br>মাসিক পরিচালন খরচ: <b>৳'+cost.toLocaleString()+'</b><br>আনুমানিক gross margin: <b>৳'+(rev-cost).toLocaleString()+'</b><br><span class="small">এতে depreciation, labour valuation, breeding, veterinary, mortality, loan interest ও capital cost ধরা হয়নি।</span>'}
-</script>
+function saveAnimal(){const d={id:animalId.value,breed:breed.value,ai:aiDate.value};localStorage.setItem("crb_animal",JSON.stringify(d));animalResult.innerHTML="Profile saved locally: "+(d.id||"")+" "+(d.breed||"");}
+function makeCalendar(){if(!aiDate.value){animalResult.innerHTML="AI date দিন।";return}const x=new Date(aiDate.value+"T00:00:00"),z=new Date(x);z.setDate(z.getDate()+283);const c=new Date(x);c.setDate(c.getDate()+253);animalResult.innerHTML="<b>Pregnancy check:</b> approximately day 28–35+<br><b>Expected calving:</b> "+z.toLocaleDateString("en-GB")+"<br><b>Close-up planning:</b> "+c.toLocaleDateString("en-GB")+"<br><span class='small'>Planning dates are approximate; actual schedule depends on pregnancy diagnosis and individual variation.</span>";}
+function problem(t){const h={milk:"দুধ কম: feed/water intake, heat stress, mastitis, disease, parity ও ration change review করুন। Sudden marked drop বা fever হলে vet assessment.",heat:"Heat/AI: standing heat, mounting activity ও clear mucus observe করুন; heat onset record করে trained AI technician/local guideline অনুযায়ী timing ঠিক করুন। Repeat breeder হলে full reproductive work-up.",mastitis:"Mastitis: abnormal milk/udder pain হলে hygienic milking ও isolation; milk test এবং treatment plan vet-এর মাধ্যমে। Withdrawal period মানুন.",calf:"Calf diarrhoea: hydration ও hygiene priority; blood, fever, severe dehydration বা inability to stand হলে জরুরি veterinary care.",bloat:"Bloat: দ্রুত left-flank distension বা breathing difficulty হলে emergency veterinary help নিন; জোর করে মুখে liquid ঢালবেন না."};problemResult.innerHTML="<h3>Problem guidance</h3><p>"+h[t]+"</p>";}</script>
 </body></html>
