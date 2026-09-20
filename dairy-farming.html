@@ -132,4 +132,6 @@ function saveLocalRecord(){const r={farmId:farmId.value,animal:recordAnimal.valu
 function refreshDashboard(){const a=JSON.parse(localStorage.getItem("crb_daily_records")||"[]"),today=new Date().toISOString().slice(0,10),x=a.filter(r=>r.date===today),milk=x.reduce((n,r)=>n+r.am+r.pm,0),cost=x.reduce((n,r)=>n+r.feed+r.other,0),month=new Date().toISOString().slice(0,7),m=a.filter(r=>r.date.startsWith(month)),mm=m.reduce((n,r)=>n+r.am+r.pm,0);dashMilk.textContent=milk.toFixed(1)+" L";dashCost.textContent="৳"+cost.toLocaleString();dashMargin.textContent="Milk volume: "+mm.toFixed(1)+" L";dashRecords.textContent=a.length+" records";}
 document.addEventListener("DOMContentLoaded",refreshDashboard);
 </script>
+
+<!-- CRB Cloud Farm integration: backend-ready UI. Authentication/data sync can be connected without exposing service-role credentials. -->
 </body></html>
