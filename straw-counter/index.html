@@ -1,0 +1,6 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#0f5132"><title>Semen Straw Counter</title><link rel="stylesheet" href="./style.css"></head>
+<body><main><section class="card"><header><div class="logo">∥</div><div><h1>Semen Straw Counter</h1><p>Take a photo. Detect. Count.</p></div></header>
+<label class="drop" for="photo"><div class="cam">⌁</div><b>Take Photo / Upload Image</b><span>Best results: clear, top-down photo with straws separated and well lit.</span><input id="photo" type="file" accept="image/*" capture="environment"></label>
+<section id="work" hidden><div class="stage"><canvas id="canvas"></canvas></div><div class="total"><span>NUMBER OF STRAWS</span><strong id="count">0</strong></div><p id="status">Detection result is an estimate. Verify the marked straws.</p><div class="actions"><button id="again">Analyze another photo</button><button id="minus">− 1</button><button id="plus">+ 1</button></div></section>
+</section><footer>Single-purpose MVP • Photo processing happens in your browser.</footer></main><script src="./app.js"></script></body></html>
